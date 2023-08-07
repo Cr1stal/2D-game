@@ -1,0 +1,68 @@
+using System.Collections;
+using System.Collections.Generic;
+using UnityEngine;
+
+public class HeroManager : MonoBehaviour
+{
+    public float deltaX;
+    private Animator animatorComponent;
+    private Rigidbody2D rigidBodyComponent;
+    private bool onGround;
+    private int health;
+
+    // Start is called before the first frame update
+    void Start()
+    {
+        deltaX = 0.03f;
+        animatorComponent = GetComponent<Animator>();
+        rigidBodyComponent = GetComponent<Rigidbody2D>();
+        onGround = true;
+    }
+
+    // Update is called once per frame
+    void Update()
+    {
+        if (Input.GetKey(KeyCode.RightArrow))
+        {
+            transform.localScale = Vector3.one;
+            transform.position += (Vector3.right * deltaX);
+        }
+
+        if (Input.GetKey(KeyCode.LeftArrow))
+        {
+            transform.localScale = new Vector3(-1.0f, 1.0f, 1.0f);
+            transform.position += (Vector3.left * deltaX);
+        }
+
+        if (Input.GetKeyDown(KeyCode.UpArrow))
+        {
+            if (onGround)
+            {
+                animatorComponent.SetTrigger("jump");
+                rigidBodyComponent.AddForce(new Vector2(0f, 7f), ForceMode2D.Impulse);
+                onGround = false;
+            }
+        }
+    }
+
+    public void IncreaseHealth(int updateParam)
+    {
+        health += updateParam;
+        health = Mathf.Min(100, health);
+    }
+
+    public void DecreaseHealth(int updateParam)
+    {
+        health -= updateParam;
+        if (health <= 0)
+        {
+            Debug.Log("Game Over");
+        }
+    }
+
+    private void OnCollisionEnter2D(Collision2D collision)
+    {
+        Debug.Log("Collision detected");
+        onGround = true;
+    }
+}
