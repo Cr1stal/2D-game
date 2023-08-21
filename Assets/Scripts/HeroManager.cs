@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -5,6 +6,7 @@ using UnityEngine;
 public class HeroManager : MonoBehaviour
 {
     public float deltaX;
+    private bool motionState;
     private Animator animatorComponent;
     private Rigidbody2D rigidBodyComponent;
     private bool onGround;
@@ -13,10 +15,29 @@ public class HeroManager : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        deltaX = 0.03f;
+        deltaX = 0.01f;
         animatorComponent = GetComponent<Animator>();
         rigidBodyComponent = GetComponent<Rigidbody2D>();
         onGround = true;
+
+        // stand animation
+        motionState = false;
+        playStandingAnimation();
+    }
+
+    private void playStandingAnimation()
+    {
+        animatorComponent.SetInteger("Transition", 0);
+    }
+
+    private void playRunningAnimation()
+    {
+        animatorComponent.SetInteger("Transition", 2);
+    }
+
+    private void playJumpingAnimation()
+    {
+        animatorComponent.SetInteger("Transition", 3);
     }
 
     // Update is called once per frame
@@ -24,25 +45,47 @@ public class HeroManager : MonoBehaviour
     {
         if (Input.GetKey(KeyCode.RightArrow))
         {
+            motionState = true;
             transform.localScale = Vector3.one;
             transform.position += (Vector3.right * deltaX);
+
+            if (onGround) {
+                playRunningAnimation();
+            }
         }
 
         if (Input.GetKey(KeyCode.LeftArrow))
         {
+            motionState = true;
             transform.localScale = new Vector3(-1.0f, 1.0f, 1.0f);
             transform.position += (Vector3.left * deltaX);
+
+            if (onGround) {
+                playRunningAnimation();
+            }
+        }
+
+        if ((Input.GetKeyUp(KeyCode.LeftArrow) || Input.GetKeyUp(KeyCode.RightArrow)) && onGround)
+        {
+            motionState = false;
+            playStandingAnimation();
+
         }
 
         if (Input.GetKeyDown(KeyCode.UpArrow))
         {
             if (onGround)
             {
-                animatorComponent.SetTrigger("jump");
-                rigidBodyComponent.AddForce(new Vector2(0f, 7f), ForceMode2D.Impulse);
+                playJumpingAnimation();
+                rigidBodyComponent.AddForce(new Vector2(0f, 8f), ForceMode2D.Impulse);
                 onGround = false;
             }
         }
+    }
+
+    public int GetHealth()
+    {
+        return health;
     }
 
     public void IncreaseHealth(int updateParam)
@@ -64,5 +107,13 @@ public class HeroManager : MonoBehaviour
     {
         Debug.Log("Collision detected");
         onGround = true;
+        if (motionState)
+        {
+            animatorComponent.SetInteger("Transition", 2);
+        }
+        else
+        {
+            animatorComponent.SetInteger("Transition", 1);
+        }
     }
 }
