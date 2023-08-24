@@ -11,6 +11,8 @@ public class HeroManager : MonoBehaviour
     private Rigidbody2D rigidBodyComponent;
     private bool onGround;
     private int health;
+    private PlayerScoreManager scoreManager;
+    private PlayerHealthManager healthManager;
 
     // Start is called before the first frame update
     void Start()
@@ -18,6 +20,8 @@ public class HeroManager : MonoBehaviour
         deltaX = 0.01f;
         animatorComponent = GetComponent<Animator>();
         rigidBodyComponent = GetComponent<Rigidbody2D>();
+        scoreManager = GetComponent<PlayerScoreManager>();
+        healthManager = GetComponent<PlayerHealthManager>();
         onGround = true;
 
         // stand animation
@@ -83,9 +87,11 @@ public class HeroManager : MonoBehaviour
         }
     }
 
-    public int GetHealth()
+    public int GetHealth() => healthManager.GetHealth();
+
+    public int GetScore()
     {
-        return health;
+        return scoreManager.GetScore();
     }
 
     public void IncreaseHealth(int updateParam)
