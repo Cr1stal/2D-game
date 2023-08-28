@@ -11,13 +11,17 @@ public class HeroManager : MonoBehaviour
     private Rigidbody2D rigidBodyComponent;
     private bool onGround;
     private int health;
+    private PlayerScoreManager scoreManager;
+    private PlayerHealthManager healthManager;
 
     // Start is called before the first frame update
     void Start()
     {
-        deltaX = 0.01f;
+        deltaX = 10f;
         animatorComponent = GetComponent<Animator>();
         rigidBodyComponent = GetComponent<Rigidbody2D>();
+        scoreManager = GetComponent<PlayerScoreManager>();
+        healthManager = GetComponent<PlayerHealthManager>();
         onGround = true;
 
         // stand animation
@@ -47,7 +51,7 @@ public class HeroManager : MonoBehaviour
         {
             motionState = true;
             transform.localScale = Vector3.one;
-            transform.position += (Vector3.right * deltaX);
+            transform.position += (Vector3.right * deltaX * Time.deltaTime);
 
             if (onGround) {
                 playRunningAnimation();
@@ -58,7 +62,7 @@ public class HeroManager : MonoBehaviour
         {
             motionState = true;
             transform.localScale = new Vector3(-1.0f, 1.0f, 1.0f);
-            transform.position += (Vector3.left * deltaX);
+            transform.position += (Vector3.left * deltaX * Time.deltaTime);
 
             if (onGround) {
                 playRunningAnimation();
@@ -83,9 +87,11 @@ public class HeroManager : MonoBehaviour
         }
     }
 
-    public int GetHealth()
+    public int GetHealth() => healthManager.GetHealth();
+
+    public int GetScore()
     {
-        return health;
+        return scoreManager.GetScore();
     }
 
     public void IncreaseHealth(int updateParam)

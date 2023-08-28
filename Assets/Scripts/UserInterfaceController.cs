@@ -3,20 +3,19 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
-public class UserInterfaceBehaviour : MonoBehaviour
+public class UserInterfaceController : MonoBehaviour
 {
     public Text healthText;
+    public Text scoreText;
     public HeroManager player;
 
-    // Start is called before the first frame update
     void Start()
     {
-        
     }
 
-    // Update is called once per frame
     void Update()
     {
-        healthText.text = "Health is " + player.GetHealth();
+        healthText.text = player.GetHealth().ToString();
+        scoreText.text = player.GetScore().ToString();
     }
 }
