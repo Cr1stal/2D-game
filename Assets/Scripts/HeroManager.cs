@@ -13,6 +13,8 @@ public class HeroManager : MonoBehaviour
     private int health;
     private PlayerScoreManager scoreManager;
     private PlayerHealthManager healthManager;
+    private Vector3 farestPosition;
+    private float secondsFromLastFrameInRunningRight;
 
     // Start is called before the first frame update
     void Start()
@@ -22,6 +24,8 @@ public class HeroManager : MonoBehaviour
         rigidBodyComponent = GetComponent<Rigidbody2D>();
         scoreManager = GetComponent<PlayerScoreManager>();
         healthManager = GetComponent<PlayerHealthManager>();
+        farestPosition = transform.position;
+        secondsFromLastFrameInRunningRight = 0f;
         onGround = true;
 
         // stand animation
@@ -52,6 +56,16 @@ public class HeroManager : MonoBehaviour
             motionState = true;
             transform.localScale = Vector3.one;
             transform.position += (Vector3.right * deltaX * Time.deltaTime);
+            if (farestPosition.x < transform.position.x)
+            {
+                farestPosition = transform.position;
+                secondsFromLastFrameInRunningRight += Time.deltaTime;
+                if (secondsFromLastFrameInRunningRight > 1)
+                { 
+                    scoreManager.IncreaseScore(1);
+                    secondsFromLastFrameInRunningRight -= 1;
+		        }
+	        }
 
             if (onGround) {
                 playRunningAnimation();
