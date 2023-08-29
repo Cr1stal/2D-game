@@ -14,6 +14,7 @@ GameObject:
   - component: {fileID: 2549320220105664241}
   - component: {fileID: 8161717599761132774}
   - component: {fileID: 957572225129577998}
+  - component: {fileID: 8043760297681864731}
   m_Layer: 0
   m_Name: Bullet
   m_TagString: Untagged
@@ -34,7 +35,7 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 10
+  m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!212 &4328999576948325058
 SpriteRenderer:
@@ -212,3 +213,16 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0326542ff9e6c43e887ee5d8c25627ea, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!114 &8043760297681864731
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3960305944964237136}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 88d4e3e11a0b14de986977e376c389ef, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  damage: 5

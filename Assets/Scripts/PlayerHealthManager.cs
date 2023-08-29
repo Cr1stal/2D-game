@@ -26,7 +26,6 @@ public class PlayerHealthManager : MonoBehaviour
     private void OnTriggerEnter2D(Collider2D collision)
     {
         var healthDamager = collision.gameObject.GetComponent<HealthDamager>();
-        Debug.Log(collision.gameObject);
         if (healthDamager != null)
 	    {
             health -= healthDamager.damage;
