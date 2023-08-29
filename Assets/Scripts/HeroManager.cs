@@ -13,8 +13,14 @@ public class HeroManager : MonoBehaviour
     private int health;
     private PlayerScoreManager scoreManager;
     private PlayerHealthManager healthManager;
+    private PlayerPickupedBatteryCountManager pickupedBatteryCountManager;
     private Vector3 farestPosition;
     private float secondsFromLastFrameInRunningRight;
+
+    public int GetPickupedBatteryCount()
+    {
+        return pickupedBatteryCountManager.GetCount();
+    }
 
     // Start is called before the first frame update
     void Start()
@@ -22,8 +28,11 @@ public class HeroManager : MonoBehaviour
         deltaX = 10f;
         animatorComponent = GetComponent<Animator>();
         rigidBodyComponent = GetComponent<Rigidbody2D>();
+
         scoreManager = GetComponent<PlayerScoreManager>();
         healthManager = GetComponent<PlayerHealthManager>();
+        pickupedBatteryCountManager = GetComponent<PlayerPickupedBatteryCountManager>();
+
         farestPosition = transform.position;
         secondsFromLastFrameInRunningRight = 0f;
         onGround = true;
@@ -95,7 +104,7 @@ public class HeroManager : MonoBehaviour
             if (onGround)
             {
                 playJumpingAnimation();
-                rigidBodyComponent.AddForce(new Vector2(0f, 8f), ForceMode2D.Impulse);
+                rigidBodyComponent.AddForce(new Vector2(0f, 9f), ForceMode2D.Impulse);
                 onGround = false;
             }
         }
@@ -125,7 +134,6 @@ public class HeroManager : MonoBehaviour
 
     private void OnCollisionEnter2D(Collision2D collision)
     {
-        Debug.Log("Collision detected");
         onGround = true;
         if (motionState)
         {

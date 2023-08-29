@@ -5,7 +5,7 @@ using UnityEngine.UI;
 
 public class UserInterfaceController : MonoBehaviour
 {
-    public Text healthText;
+    public Text batteryCounterText;
     public Text scoreText;
     public HeroManager player;
 
@@ -15,7 +15,7 @@ public class UserInterfaceController : MonoBehaviour
 
     void Update()
     {
-        healthText.text = player.GetHealth().ToString();
         scoreText.text = player.GetScore().ToString();
+        batteryCounterText.text = player.GetPickupedBatteryCount().ToString(); 
     }
 }
