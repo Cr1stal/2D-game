@@ -156,4 +156,5 @@ public class HeroManager : MonoBehaviour
             animatorComponent.SetInteger("Transition", 1);
         }
     }
+
 }
