@@ -6,7 +6,7 @@ AnimationClip:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: HeroStandAnimation
+  m_Name: GunReadyToShotAnimation
   serializedVersion: 7
   m_Legacy: 0
   m_Compressed: 0
@@ -21,9 +21,9 @@ AnimationClip:
   - serializedVersion: 2
     curve:
     - time: 0
-      value: {fileID: 21300000, guid: f9061987ee6c942208d56c715d5fb1b8, type: 3}
+      value: {fileID: -3085044348898271153, guid: 87c9ee133141b4b8bb1cb2789b223df7, type: 3}
     - time: 0.083333336
-      value: {fileID: 21300000, guid: 61088043e06844401a9e48f5e46c8be4, type: 3}
+      value: {fileID: -5375846065101130936, guid: 8cd426c9097594bd3ac66acf310d7590, type: 3}
     attribute: m_Sprite
     path: 
     classID: 212
@@ -46,8 +46,8 @@ AnimationClip:
       isIntCurve: 0
       isSerializeReferenceCurve: 0
     pptrCurveMapping:
-    - {fileID: 21300000, guid: f9061987ee6c942208d56c715d5fb1b8, type: 3}
-    - {fileID: 21300000, guid: 61088043e06844401a9e48f5e46c8be4, type: 3}
+    - {fileID: -3085044348898271153, guid: 87c9ee133141b4b8bb1cb2789b223df7, type: 3}
+    - {fileID: -5375846065101130936, guid: 8cd426c9097594bd3ac66acf310d7590, type: 3}
   m_AnimationClipSettings:
     serializedVersion: 2
     m_AdditiveReferencePoseClip: {fileID: 0}

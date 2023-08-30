@@ -47,7 +47,7 @@ public class HeroManager : MonoBehaviour
 
     private void playStandingAnimation()
     {
-        animatorComponent.SetInteger("Transition", 0);
+        animatorComponent.SetInteger("Transition", 1);
     }
 
     private void playRunningAnimation()
@@ -60,6 +60,17 @@ public class HeroManager : MonoBehaviour
         animatorComponent.SetInteger("Transition", 3);
     }
 
+    private void playFallingAnimation()
+    {
+        animatorComponent.SetInteger("Transition", 4);
+    }
+
+    private IEnumerator EndGame()
+    { 
+            yield return new WaitForSeconds(1.5f);
+            gameOverManager.EndGame();
+    }
+
     // Update is called once per frame
     void Update()
     {
@@ -70,7 +81,8 @@ public class HeroManager : MonoBehaviour
 
         if (healthManager.IsDead())
         {
-            gameOverManager.EndGame();
+            playFallingAnimation();
+            StartCoroutine(EndGame());
             return;
 	    }
 

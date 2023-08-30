@@ -7,28 +7,29 @@ public class GunRotationManager : MonoBehaviour
     [SerializeField]
     GameObject gunRotationPoint;
 
+    GunManager gunManager;
+
     Vector3 startLocation;
     RectTransform rectTransform;
     float angle;
     float degreesPerSecond;
     int rotationDirection;
-    bool active = false;
 
     // Start is called before the first frame update
     void Start()
     {
         rectTransform = gunRotationPoint.GetComponent<RectTransform>();
+        gunManager = GetComponent<GunManager>();
         startLocation = new Vector3(4.0f, 2.0f, 0);
         angle = 0f;
-        degreesPerSecond = 20;
+        degreesPerSecond = 5;
         rotationDirection = 1;
-        active = true;
     }
 
     // Update is called once per frame
     void Update()
     {
-        if (!active) {
+        if (!gunManager.active) {
             return;
 	    }
         var rotationAngle = Time.deltaTime * degreesPerSecond;
@@ -43,15 +44,5 @@ public class GunRotationManager : MonoBehaviour
 
         rotationVector *= rotationDirection;
         rectTransform.Rotate(rotationVector);
-    }
-
-    private void OnBecameInvisible()
-    {
-        active = false;
-    }
-
-    private void OnBecameVisible()
-    {
-        active = true;
     }
 }

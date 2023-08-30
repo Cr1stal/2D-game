@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class ProjectileShooter : MonoBehaviour
+public class GunManager : MonoBehaviour
 {
     [SerializeField, Tooltip("The projectile pool")]
     ObjectPool bulletPool = null;
@@ -13,18 +13,26 @@ public class ProjectileShooter : MonoBehaviour
     [SerializeField, Tooltip("The head of gun")]
     GameObject gunHead = null;
 
-    [SerializeField, Tooltip("The amount of time to wait before creating another projectile")]
-    float timeBetweenShots = 3;
-
     [SerializeField, Tooltip("The speed that new projectiles should be moving at")]
     float projectileSpeed = 0.5f;
 
-    bool active;
+    [SerializeField, Tooltip("Is the gun active?")]
+    public bool active = true;
+
+    Animator animator;
+
+    bool _readyToShoot;
 
     void Start()
     {
+        animator = GetComponent<Animator>();
         StartCoroutine(ShootProjectiles());
-        active = true;
+        _readyToShoot = true;
+    }
+
+    public void ReadyToShoot()
+    {
+        _readyToShoot = true;
     }
 
     IEnumerator ShootProjectiles()
@@ -32,10 +40,16 @@ public class ProjectileShooter : MonoBehaviour
         while(true)
         {
             yield return new WaitWhile(() => active == false);
+            yield return new WaitWhile(() => _readyToShoot == false);
+
+            animator.SetBool("readyToShoot", true);
+
+            yield return new WaitForSeconds(1);
 
             ShootNewProjectile();
 
-            yield return new WaitForSeconds(timeBetweenShots);
+            animator.SetBool("readyToShoot", false);
+            _readyToShoot = false;
         }
     }
 
@@ -56,6 +70,9 @@ public class ProjectileShooter : MonoBehaviour
         var gunTailPosition = gunTail.transform.position;
         var gunHeadPosition = gunHead.transform.position;
         rigidBody.velocity = (gunHeadPosition - gunTailPosition) * projectileSpeed;
+
+        var bulletManager = projectile.GetComponent<BulletManager>();
+        bulletManager.parentGun = this;
     }
 
     private void OnBecameInvisible()

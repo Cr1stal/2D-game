@@ -35,20 +35,36 @@ public class PlayerHealthManager : MonoBehaviour
 
     private void OnTriggerEnter2D(Collider2D collision)
     {
-        var healthChanger = collision.gameObject.GetComponent<HealthChanger>();
-        if (healthChanger != null)
-	    {
-            UpdateHealth(healthChanger.value);
-	    }
+        ProcessHealthChanger(collision);
     }
 
     private void OnTriggerStay2D(Collider2D collision)
     {
+        ProcessHealthChanger(collision);
+    }
+
+    private void ProcessHealthChanger(Collider2D collision)
+    { 
         var healthChanger = collision.gameObject.GetComponent<HealthChanger>();
-        if (healthChanger != null)
-	    {
-            UpdateHealth(healthChanger.value);
-	    }
+        if (healthChanger == null)
+        {
+            return;
+        }
+
+        var value = healthChanger.value;
+        if (collision.gameObject.CompareTag("Battery"))
+        {
+            if (health >= GetMaxHealth())
+            {
+                return;
+            }
+
+            UpdateHealth(value);
+            Destroy(collision.gameObject);
+            return;
+        }
+
+        UpdateHealth(value);
     }
 
     private void UpdateHealth(int value)

@@ -21,7 +21,6 @@ public class PlayerPickupedBatteryCountManager : MonoBehaviour
         if (collision.gameObject.CompareTag("Battery"))
         {
             count += 1;
-            Destroy(collision.gameObject);
 	    }
     }
 }
