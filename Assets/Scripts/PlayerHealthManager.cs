@@ -11,10 +11,15 @@ public class PlayerHealthManager : MonoBehaviour
         return health;
     }
 
+    public int GetMaxHealth()
+    {
+        return 100;
+    }
+
     // Start is called before the first frame update
     void Start()
     {
-        health = 100;
+        health = GetMaxHealth();
     }
 
     // Update is called once per frame

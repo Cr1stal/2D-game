@@ -6,11 +6,11 @@ using UnityEngine;
 public class HeroManager : MonoBehaviour
 {
     public float deltaX;
+    public PauseMenuManager pauseMenuManager;
     private bool motionState;
     private Animator animatorComponent;
     private Rigidbody2D rigidBodyComponent;
     private bool onGround;
-    private int health;
     private PlayerScoreManager scoreManager;
     private PlayerHealthManager healthManager;
     private PlayerPickupedBatteryCountManager pickupedBatteryCountManager;
@@ -60,6 +60,11 @@ public class HeroManager : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        if (pauseMenuManager.IsGamePaused())
+        {
+            return;
+	    }
+
         if (Input.GetKey(KeyCode.RightArrow))
         {
             motionState = true;
@@ -111,25 +116,11 @@ public class HeroManager : MonoBehaviour
     }
 
     public int GetHealth() => healthManager.GetHealth();
+    public int GetMaxHealth() => healthManager.GetMaxHealth();
 
     public int GetScore()
     {
         return scoreManager.GetScore();
-    }
-
-    public void IncreaseHealth(int updateParam)
-    {
-        health += updateParam;
-        health = Mathf.Min(100, health);
-    }
-
-    public void DecreaseHealth(int updateParam)
-    {
-        health -= updateParam;
-        if (health <= 0)
-        {
-            Debug.Log("Game Over");
-        }
     }
 
     private void OnCollisionEnter2D(Collision2D collision)
