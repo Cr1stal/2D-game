@@ -2932,10 +2932,10 @@ MonoBehaviour:
   m_GameObject: {fileID: 674282302}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 88d4e3e11a0b14de986977e376c389ef, type: 3}
+  m_Script: {fileID: 11500000, guid: ddc12f11bd404412985814ff84fb2517, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  damage: 5
+  value: -1
 --- !u!1 &686042414
 GameObject:
   m_ObjectHideFlags: 0
@@ -3532,6 +3532,7 @@ GameObject:
   - component: {fileID: 790775300}
   - component: {fileID: 790775299}
   - component: {fileID: 790775302}
+  - component: {fileID: 790775303}
   m_Layer: 0
   m_Name: FuelCan
   m_TagString: Battery
@@ -3694,6 +3695,19 @@ PolygonCollider2D:
       - {x: 0.405, y: -0.205}
       - {x: 0.405, y: -0.114999995}
   m_UseDelaunayMesh: 0
+--- !u!114 &790775303
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 790775298}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ddc12f11bd404412985814ff84fb2517, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  value: 20
 --- !u!1 &851800563
 GameObject:
   m_ObjectHideFlags: 0
@@ -3706,6 +3720,7 @@ GameObject:
   - component: {fileID: 851800567}
   - component: {fileID: 851800566}
   - component: {fileID: 851800565}
+  - component: {fileID: 851800568}
   m_Layer: 0
   m_Name: FuelCan
   m_TagString: Battery
@@ -3868,6 +3883,19 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
+--- !u!114 &851800568
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 851800563}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ddc12f11bd404412985814ff84fb2517, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  value: 20
 --- !u!1 &918549985
 GameObject:
   m_ObjectHideFlags: 0
@@ -5025,6 +5053,7 @@ GameObject:
   - component: {fileID: 1138914598}
   - component: {fileID: 1138914597}
   - component: {fileID: 1138914596}
+  - component: {fileID: 1138914599}
   m_Layer: 0
   m_Name: FuelCan
   m_TagString: Battery
@@ -5187,6 +5216,19 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
+--- !u!114 &1138914599
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1138914594}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ddc12f11bd404412985814ff84fb2517, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  value: 20
 --- !u!1 &1148178910
 GameObject:
   m_ObjectHideFlags: 0
@@ -7111,10 +7153,10 @@ MonoBehaviour:
   m_GameObject: {fileID: 1661862861}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 88d4e3e11a0b14de986977e376c389ef, type: 3}
+  m_Script: {fileID: 11500000, guid: ddc12f11bd404412985814ff84fb2517, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  damage: 5
+  value: -1
 --- !u!1 &1663586496
 GameObject:
   m_ObjectHideFlags: 0
@@ -7686,10 +7728,10 @@ MonoBehaviour:
   m_GameObject: {fileID: 1858867118}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 88d4e3e11a0b14de986977e376c389ef, type: 3}
+  m_Script: {fileID: 11500000, guid: ddc12f11bd404412985814ff84fb2517, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  damage: 5
+  value: -1
 --- !u!1 &1860445195
 GameObject:
   m_ObjectHideFlags: 0

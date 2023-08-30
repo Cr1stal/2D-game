@@ -16,6 +16,11 @@ public class PlayerHealthManager : MonoBehaviour
         return 100;
     }
 
+    public bool IsDead()
+    {
+        return health == 0;
+    }
+
     // Start is called before the first frame update
     void Start()
     {
@@ -30,15 +35,26 @@ public class PlayerHealthManager : MonoBehaviour
 
     private void OnTriggerEnter2D(Collider2D collision)
     {
-        var healthDamager = collision.gameObject.GetComponent<HealthDamager>();
-        if (healthDamager != null)
+        var healthChanger = collision.gameObject.GetComponent<HealthChanger>();
+        if (healthChanger != null)
 	    {
-            health -= healthDamager.damage;
+            UpdateHealth(healthChanger.value);
 	    }
     }
 
-    private void OnTriggerExit2D(Collider2D collision)
+    private void OnTriggerStay2D(Collider2D collision)
     {
+        var healthChanger = collision.gameObject.GetComponent<HealthChanger>();
+        if (healthChanger != null)
+	    {
+            UpdateHealth(healthChanger.value);
+	    }
+    }
 
+    private void UpdateHealth(int value)
+    { 
+            health += value;
+            health = Mathf.Min(health, GetMaxHealth());
+            health = Mathf.Max(health, 0);
     }
 }

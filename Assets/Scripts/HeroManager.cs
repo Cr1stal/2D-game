@@ -65,6 +65,12 @@ public class HeroManager : MonoBehaviour
             return;
 	    }
 
+        if (healthManager.IsDead())
+        {
+            // Game OVER
+            return;
+	    }
+
         if (Input.GetKey(KeyCode.RightArrow))
         {
             motionState = true;
