@@ -6,11 +6,13 @@ using UnityEngine;
 public class HeroManager : MonoBehaviour
 {
     public float deltaX;
+    public PauseMenuManager pauseMenuManager;
+    public GameOverManager gameOverManager;
+
     private bool motionState;
     private Animator animatorComponent;
     private Rigidbody2D rigidBodyComponent;
     private bool onGround;
-    private int health;
     private PlayerScoreManager scoreManager;
     private PlayerHealthManager healthManager;
     private PlayerPickupedBatteryCountManager pickupedBatteryCountManager;
@@ -25,6 +27,7 @@ public class HeroManager : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
+        Time.timeScale = 1.0f;
         deltaX = 10f;
         animatorComponent = GetComponent<Animator>();
         rigidBodyComponent = GetComponent<Rigidbody2D>();
@@ -60,6 +63,17 @@ public class HeroManager : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        if (pauseMenuManager.IsGamePaused())
+        {
+            return;
+	    }
+
+        if (healthManager.IsDead())
+        {
+            gameOverManager.EndGame();
+            return;
+	    }
+
         if (Input.GetKey(KeyCode.RightArrow))
         {
             motionState = true;
@@ -111,25 +125,11 @@ public class HeroManager : MonoBehaviour
     }
 
     public int GetHealth() => healthManager.GetHealth();
+    public int GetMaxHealth() => healthManager.GetMaxHealth();
 
     public int GetScore()
     {
         return scoreManager.GetScore();
-    }
-
-    public void IncreaseHealth(int updateParam)
-    {
-        health += updateParam;
-        health = Mathf.Min(100, health);
-    }
-
-    public void DecreaseHealth(int updateParam)
-    {
-        health -= updateParam;
-        if (health <= 0)
-        {
-            Debug.Log("Game Over");
-        }
     }
 
     private void OnCollisionEnter2D(Collision2D collision)

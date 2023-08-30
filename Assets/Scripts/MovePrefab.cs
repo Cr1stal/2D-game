@@ -27,9 +27,12 @@ public class MovePrefab : MonoBehaviour
 
     private void OnTriggerEnter2D(Collider2D collision)
     {
-        prefabToMove.transform.position += Vector3.right * deltaX;
+        if (collision.gameObject.GetComponent<HeroManager>() != null)
+        {
+            prefabToMove.transform.position += Vector3.right * deltaX;
 
-        gameObject.SetActive(false);
-        sensorToActivate.SetActive(true);
+            gameObject.SetActive(false);
+            sensorToActivate.SetActive(true);
+        }
     }
 }

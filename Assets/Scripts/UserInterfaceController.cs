@@ -7,6 +7,7 @@ public class UserInterfaceController : MonoBehaviour
 {
     public Text batteryCounterText;
     public Text scoreText;
+    public Text healthText;
     public HeroManager player;
 
     void Start()
@@ -16,6 +17,7 @@ public class UserInterfaceController : MonoBehaviour
     void Update()
     {
         scoreText.text = player.GetScore().ToString();
-        batteryCounterText.text = player.GetPickupedBatteryCount().ToString(); 
+        batteryCounterText.text = player.GetPickupedBatteryCount().ToString();
+        healthText.text = player.GetHealth().ToString();
     }
 }

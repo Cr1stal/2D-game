@@ -1,9 +1,9 @@
 ﻿using UnityEngine;
 using System.Collections;
 
-public class HealthDamager : MonoBehaviour
+public class HealthChanger : MonoBehaviour
 {
-    public int damage;
+    public int value;
 
     // Use this for initialization
     void Start()
