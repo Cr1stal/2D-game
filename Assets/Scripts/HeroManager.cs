@@ -7,6 +7,8 @@ public class HeroManager : MonoBehaviour
 {
     public float deltaX;
     public PauseMenuManager pauseMenuManager;
+    public GameOverManager gameOverManager;
+
     private bool motionState;
     private Animator animatorComponent;
     private Rigidbody2D rigidBodyComponent;
@@ -25,6 +27,7 @@ public class HeroManager : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
+        Time.timeScale = 1.0f;
         deltaX = 10f;
         animatorComponent = GetComponent<Animator>();
         rigidBodyComponent = GetComponent<Rigidbody2D>();
@@ -67,7 +70,7 @@ public class HeroManager : MonoBehaviour
 
         if (healthManager.IsDead())
         {
-            // Game OVER
+            gameOverManager.EndGame();
             return;
 	    }
 
