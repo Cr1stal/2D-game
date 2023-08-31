@@ -37,13 +37,33 @@ public class PlayerHealthManager : MonoBehaviour
 
     private void OnTriggerEnter2D(Collider2D collision)
     {
-        LazerAudio.Play();
+        if (IsDead())
+        {
+            return;
+        }
+
+        if (collision.gameObject.CompareTag("Lazer"))
+        {
+            LazerAudio.Play();
+        }
+
         ProcessHealthChanger(collision);
     }
 
     private void OnTriggerStay2D(Collider2D collision)
     {
-        FuelAudio.Play();
+        if (IsDead())
+        {
+            return;
+        }
+        if (collision.gameObject.CompareTag("Lazer"))
+        {
+            if (!LazerAudio.isPlaying)
+            {
+                LazerAudio.Play();
+            }
+        }
+
         ProcessHealthChanger(collision);
     }
 
@@ -63,6 +83,7 @@ public class PlayerHealthManager : MonoBehaviour
                 return;
             }
 
+            FuelAudio.Play();
             UpdateHealth(value);
             collision.gameObject.SetActive(false);
             return;

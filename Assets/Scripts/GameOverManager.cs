@@ -8,6 +8,8 @@ public class GameOverManager : MonoBehaviour
     public Text fuelCountText;
     public Text distanceText;
     public HeroManager player;
+    public AudioSource gameOverAudio;
+    public AudioSource backgroundAudio;
 
     // Use this for initialization
     void Start()
@@ -23,12 +25,18 @@ public class GameOverManager : MonoBehaviour
 
     public void EndGame()
     {
+        backgroundAudio.Stop();
+        gameOverAudio.loop = true;
+        gameOverAudio.Play();
+
         gameObject.SetActive(true);
         Time.timeScale = 0;
     }
 
     public void PlayAgain()
     {
+        gameOverAudio.Stop();
+        gameOverAudio.loop = false;
         gameObject.SetActive(false);
         SceneManager.LoadScene("SampleScene");
     }

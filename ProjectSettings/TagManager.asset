@@ -6,13 +6,13 @@ TagManager:
   tags:
   - Bullet
   - Ground
-  - Battery
   - GunPoint
   - LazerPoint
   - FuelCanPoint
   - Lazer
   - Gun
   - FuelCan
+  - LazerWall
   layers:
   - Default
   - TransparentFX
