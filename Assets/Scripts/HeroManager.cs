@@ -24,6 +24,7 @@ public class HeroManager : MonoBehaviour
     public AudioSource fallingAudio;
     private bool isDead = false;
 
+    public float moveSpeed = 5.0f;
 
     public int GetPickupedBatteryCount()
     {
@@ -47,9 +48,26 @@ public class HeroManager : MonoBehaviour
         onGround = true;
         isDead = false;
 
+        //joystick
+        JoystickManager joystick = FindObjectOfType<JoystickManager>();
+        if (joystick != null)
+        {
+            joystick.OnMove += MoveCharacter;
+        }
+
         // stand animation
         motionState = false;
         playStandingAnimation();
+    }
+
+    private void MoveCharacter(Vector2 inputVector)
+    {
+        Vector2 movement = new Vector2(inputVector.x, inputVector.y);
+        transform.Translate(movement * moveSpeed * Time.deltaTime);
+
+        if (onGround) {
+            playRunningAnimation();
+        }
     }
 
     private void playStandingAnimation()
@@ -105,6 +123,7 @@ public class HeroManager : MonoBehaviour
 
         if (Input.GetKey(KeyCode.RightArrow))
         {
+            
             motionState = true;
             transform.localScale = Vector3.one;
             transform.position += (Vector3.right * deltaX * Time.deltaTime);
