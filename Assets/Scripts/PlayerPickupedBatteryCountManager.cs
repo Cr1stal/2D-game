@@ -18,7 +18,7 @@ public class PlayerPickupedBatteryCountManager : MonoBehaviour
 
     private void OnTriggerEnter2D(Collider2D collision)
     {
-        if (collision.gameObject.CompareTag("Battery"))
+        if (collision.gameObject.CompareTag("FuelCan"))
         {
             count += 1;
 	    }

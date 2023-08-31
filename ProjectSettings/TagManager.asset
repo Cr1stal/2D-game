@@ -7,6 +7,12 @@ TagManager:
   - Bullet
   - Ground
   - Battery
+  - GunPoint
+  - LazerPoint
+  - FuelCanPoint
+  - Lazer
+  - Gun
+  - FuelCan
   layers:
   - Default
   - TransparentFX
