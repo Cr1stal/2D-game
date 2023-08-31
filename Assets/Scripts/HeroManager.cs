@@ -18,6 +18,10 @@ public class HeroManager : MonoBehaviour
     private PlayerPickupedBatteryCountManager pickupedBatteryCountManager;
     private Vector3 farestPosition;
     private float secondsFromLastFrameInRunningRight;
+    public AudioSource gameOverAudio;
+    public AudioSource backgroundAudio;
+    public AudioSource jumpingAudio;
+
 
     public int GetPickupedBatteryCount()
     {
@@ -66,7 +70,8 @@ public class HeroManager : MonoBehaviour
     }
 
     private IEnumerator EndGame()
-    { 
+    {       backgroundAudio.Stop();
+            gameOverAudio.Play();
             yield return new WaitForSeconds(1.5f);
             gameOverManager.EndGame();
     }
@@ -129,6 +134,7 @@ public class HeroManager : MonoBehaviour
         {
             if (onGround)
             {
+                jumpingAudio.Play();
                 playJumpingAnimation();
                 rigidBodyComponent.AddForce(new Vector2(0f, 9f), ForceMode2D.Impulse);
                 onGround = false;

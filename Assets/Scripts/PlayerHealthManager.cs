@@ -5,6 +5,8 @@ using UnityEngine;
 public class PlayerHealthManager : MonoBehaviour
 {
     public int health;
+    public AudioSource LazerAudio;
+    public AudioSource FuelAudio;
 
     public int GetHealth()
     {
@@ -35,11 +37,13 @@ public class PlayerHealthManager : MonoBehaviour
 
     private void OnTriggerEnter2D(Collider2D collision)
     {
+        LazerAudio.Play();
         ProcessHealthChanger(collision);
     }
 
     private void OnTriggerStay2D(Collider2D collision)
     {
+        FuelAudio.Play();
         ProcessHealthChanger(collision);
     }
 

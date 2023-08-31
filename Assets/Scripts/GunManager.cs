@@ -23,6 +23,8 @@ public class GunManager : MonoBehaviour
 
     bool _readyToShoot;
 
+    public AudioSource audioSource; 
+
     void Start()
     {
         animator = GetComponent<Animator>();
@@ -55,6 +57,7 @@ public class GunManager : MonoBehaviour
 
     void ShootNewProjectile()
     {
+        audioSource.Play();
         var projectile = bulletPool.GetObject();
         projectile.transform.position = gunHead.transform.position;
         projectile.transform.rotation = gunHead.transform.rotation;
