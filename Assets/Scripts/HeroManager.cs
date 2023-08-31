@@ -21,6 +21,8 @@ public class HeroManager : MonoBehaviour
     public AudioSource gameOverAudio;
     public AudioSource backgroundAudio;
     public AudioSource jumpingAudio;
+    public AudioSource fallingAudio;
+    private bool isDead = false;
 
 
     public int GetPickupedBatteryCount()
@@ -43,6 +45,7 @@ public class HeroManager : MonoBehaviour
         farestPosition = transform.position;
         secondsFromLastFrameInRunningRight = 0f;
         onGround = true;
+        isDead = false;
 
         // stand animation
         motionState = false;
@@ -70,10 +73,11 @@ public class HeroManager : MonoBehaviour
     }
 
     private IEnumerator EndGame()
-    {       backgroundAudio.Stop();
-            gameOverAudio.Play();
-            yield return new WaitForSeconds(1.5f);
-            gameOverManager.EndGame();
+    {
+        yield return new WaitForSeconds(3.0f);
+        fallingAudio.Stop();
+        fallingAudio.loop = false;
+        gameOverManager.EndGame();
     }
 
     // Update is called once per frame
@@ -86,8 +90,16 @@ public class HeroManager : MonoBehaviour
 
         if (healthManager.IsDead())
         {
+            if (isDead)
+            {
+                return;
+            }
+
             playFallingAnimation();
+            fallingAudio.loop = true;
+            fallingAudio.Play();
             StartCoroutine(EndGame());
+            isDead = true;
             return;
 	    }
 

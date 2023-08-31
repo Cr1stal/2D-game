@@ -13,6 +13,7 @@ public class MovePrefab : MonoBehaviour
     private GameObject lazer;
     private GameObject gun;
     private GameObject fuelCan;
+    private GameObject lazerWall;
 
     private ArrayList lazerPoints;
     private ArrayList fuelCanPoints;
@@ -25,7 +26,8 @@ public class MovePrefab : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        deltaX = 76.86374f;
+        //deltaX = 76.86374f;
+        deltaX = 102.41588f;
         lazerPoints = new ArrayList();
         fuelCanPoints = new ArrayList();
         gunPoints = new ArrayList();
@@ -35,19 +37,23 @@ public class MovePrefab : MonoBehaviour
     { 
         Transform t = prefabToMove.transform;
         for (int i = 0; i < t.childCount; i++) 
-		{
+	{
             GameObject currentGameObject = t.GetChild(i).gameObject;
             if (currentGameObject.CompareTag("Lazer"))
-			{
-				lazer = currentGameObject;
-			}
+	    {
+	        lazer = currentGameObject;
+	    }
             else if (currentGameObject.CompareTag("FuelCan"))
             {
-				fuelCan = currentGameObject;
+		fuelCan = currentGameObject;
             }
             else if (currentGameObject.CompareTag("Gun"))
             {
-				gun = currentGameObject;
+		gun = currentGameObject;
+            }
+            else if (currentGameObject.CompareTag("LazerWall"))
+            { 
+		lazerWall = currentGameObject;
             }
             else if (currentGameObject.CompareTag("LazerPoint"))
             {
@@ -85,11 +91,16 @@ public class MovePrefab : MonoBehaviour
                 initializedValues = true;
             }
 
+            if (lazerWall != null)
+            {
+                lazerWall.SetActive(true);
+	    }
 
             if (lazerPoints.Count > 0)
             {
                 var lazerPoint = (GameObject)lazerPoints[Random.Range(0, lazerPoints.Count)];
                 lazer.transform.position = lazerPoint.transform.position;
+                lazer.SetActive(true);
             }
 
             if (fuelCanPoints.Count > 0)
