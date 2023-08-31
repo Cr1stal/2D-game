@@ -9,7 +9,6 @@ public class GunRotationManager : MonoBehaviour
 
     GunManager gunManager;
 
-    Vector3 startLocation;
     RectTransform rectTransform;
     float angle;
     float degreesPerSecond;
@@ -20,7 +19,6 @@ public class GunRotationManager : MonoBehaviour
     {
         rectTransform = gunRotationPoint.GetComponent<RectTransform>();
         gunManager = GetComponent<GunManager>();
-        startLocation = new Vector3(4.0f, 2.0f, 0);
         angle = 0f;
         degreesPerSecond = 5;
         rotationDirection = 1;
@@ -33,7 +31,7 @@ public class GunRotationManager : MonoBehaviour
             return;
 	    }
         var rotationAngle = Time.deltaTime * degreesPerSecond;
-        var rotationVector = Vector3.forward * rotationAngle;
+        var rotationVector = Vector3.back * rotationAngle;
 
         angle += rotationAngle;
         if (angle > 120)

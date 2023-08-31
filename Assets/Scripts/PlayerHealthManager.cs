@@ -56,7 +56,7 @@ public class PlayerHealthManager : MonoBehaviour
         }
 
         var value = healthChanger.value;
-        if (collision.gameObject.CompareTag("Battery"))
+        if (collision.gameObject.CompareTag("FuelCan"))
         {
             if (health >= GetMaxHealth())
             {
@@ -64,7 +64,7 @@ public class PlayerHealthManager : MonoBehaviour
             }
 
             UpdateHealth(value);
-            Destroy(collision.gameObject);
+            collision.gameObject.SetActive(false);
             return;
         }
 
