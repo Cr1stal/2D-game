@@ -38,6 +38,6 @@ public class GameOverManager : MonoBehaviour
         gameOverAudio.Stop();
         gameOverAudio.loop = false;
         gameObject.SetActive(false);
-        SceneManager.LoadScene("SampleScene");
+        SceneManager.LoadScene(1);
     }
 }

@@ -8,6 +8,11 @@ public class HeroManager : MonoBehaviour
     public float deltaX;
     public PauseMenuManager pauseMenuManager;
     public GameOverManager gameOverManager;
+    public AudioSource gameOverAudio;
+    public AudioSource backgroundAudio;
+    public AudioSource jumpingAudio;
+    public AudioSource fallingAudio;
+    public FixedJoystick joystick;
 
     private bool motionState;
     private Animator animatorComponent;
@@ -18,10 +23,6 @@ public class HeroManager : MonoBehaviour
     private PlayerPickupedBatteryCountManager pickupedBatteryCountManager;
     private Vector3 farestPosition;
     private float secondsFromLastFrameInRunningRight;
-    public AudioSource gameOverAudio;
-    public AudioSource backgroundAudio;
-    public AudioSource jumpingAudio;
-    public AudioSource fallingAudio;
     private bool isDead = false;
 
 
@@ -103,7 +104,7 @@ public class HeroManager : MonoBehaviour
             return;
 	    }
 
-        if (Input.GetKey(KeyCode.RightArrow))
+        if (IsMovingRight())
         {
             motionState = true;
             transform.localScale = Vector3.one;
@@ -124,7 +125,7 @@ public class HeroManager : MonoBehaviour
             }
         }
 
-        if (Input.GetKey(KeyCode.LeftArrow))
+        if (IsMovingLeft())
         {
             motionState = true;
             transform.localScale = new Vector3(-1.0f, 1.0f, 1.0f);
@@ -135,14 +136,14 @@ public class HeroManager : MonoBehaviour
             }
         }
 
-        if ((Input.GetKeyUp(KeyCode.LeftArrow) || Input.GetKeyUp(KeyCode.RightArrow)) && onGround)
+        if (IsStanding() && onGround)
         {
             motionState = false;
             playStandingAnimation();
 
         }
 
-        if (Input.GetKeyDown(KeyCode.UpArrow))
+        if (IsMovingUp())
         {
             if (onGround)
             {
@@ -153,6 +154,57 @@ public class HeroManager : MonoBehaviour
             }
         }
     }
+
+    private bool IsStanding()
+    {
+        if (joystick)
+        {
+            return Mathf.Abs(joystick.Horizontal) <= 0.15f;
+        }
+        else
+        {
+            return Input.GetKeyUp(KeyCode.LeftArrow) || Input.GetKeyUp(KeyCode.RightArrow);
+        }
+    }
+
+
+    private bool IsMovingLeft()
+    {
+        if (joystick)
+        {
+            return joystick.Horizontal < -0.5f;
+        }
+        else
+        {
+            return Input.GetKey(KeyCode.LeftArrow);
+        }
+    }
+
+    private bool IsMovingRight()
+    {
+        if (joystick)
+        {
+            return joystick.Horizontal > 0.5f;
+        }
+        else
+        {
+            return Input.GetKey(KeyCode.RightArrow);
+        }
+    }
+
+    private bool IsMovingUp()
+    {
+        if (joystick)
+        {
+            return joystick.Vertical > 0.5f;
+        }
+        else
+        {
+            return Input.GetKeyDown(KeyCode.UpArrow);
+        }
+    }
+
+
 
     public int GetHealth() => healthManager.GetHealth();
     public int GetMaxHealth() => healthManager.GetMaxHealth();
