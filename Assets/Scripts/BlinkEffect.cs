@@ -32,14 +32,11 @@ public class BlinkEffect : MonoBehaviour
 
     private IEnumerator BlinkCoroutine()
     {
-        for (int i = 0; i < blinkCount * 2; i++)
+        while (isBlinking)
         {
             spriteRenderer.enabled = !spriteRenderer.enabled;
             yield return new WaitForSeconds(blinkInterval);
         }
-
-        spriteRenderer.enabled = true;  // Ensure the sprite is visible when blinking ends
-        isBlinking = false;
     }
 
 }

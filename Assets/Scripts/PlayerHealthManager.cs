@@ -4,13 +4,16 @@ using UnityEngine;
 
 public class PlayerHealthManager : MonoBehaviour
 {
-    public int health;
     public AudioSource LazerAudio;
     public AudioSource FuelAudio;
 
+    private int _health = 100;
+    private bool _acceptHealthChanges;
+    private BlinkEffect _blinkEffect;
+
     public int GetHealth()
     {
-        return health;
+        return _health;
     }
 
     public int GetMaxHealth()
@@ -20,13 +23,20 @@ public class PlayerHealthManager : MonoBehaviour
 
     public bool IsDead()
     {
-        return health == 0;
+        return _health == 0;
+    }
+
+    public bool IsAcceptHealthChanges()
+    {
+        return _acceptHealthChanges;
     }
 
     // Start is called before the first frame update
     void Start()
     {
-        health = GetMaxHealth();
+        _health = GetMaxHealth();
+        _acceptHealthChanges = true;
+        _blinkEffect = GetComponent<BlinkEffect>();
     }
 
     // Update is called once per frame
@@ -56,6 +66,7 @@ public class PlayerHealthManager : MonoBehaviour
         {
             return;
         }
+
         if (collision.gameObject.CompareTag("Lazer"))
         {
             if (!LazerAudio.isPlaying)
@@ -75,10 +86,15 @@ public class PlayerHealthManager : MonoBehaviour
             return;
         }
 
+        if (!IsAcceptHealthChanges())
+        {
+            return;
+        }
+
         var value = healthChanger.value;
         if (collision.gameObject.CompareTag("FuelCan"))
         {
-            if (health >= GetMaxHealth())
+            if (_health >= GetMaxHealth())
             {
                 return;
             }
@@ -90,12 +106,24 @@ public class PlayerHealthManager : MonoBehaviour
         }
 
         UpdateHealth(value);
+
+        _acceptHealthChanges = false;
+        _blinkEffect.StartBlinking();
+        StartCoroutine(StartAcceptingHealthChangesCoroutine());
+    }
+
+    private IEnumerator StartAcceptingHealthChangesCoroutine()
+    {
+        yield return new WaitForSeconds(1.5f);
+
+        _acceptHealthChanges = true;
+        _blinkEffect.StopBlinking();
     }
 
     private void UpdateHealth(int value)
     { 
-            health += value;
-            health = Mathf.Min(health, GetMaxHealth());
-            health = Mathf.Max(health, 0);
+            _health += value;
+            _health = Mathf.Min(_health, GetMaxHealth());
+            _health = Mathf.Max(_health, 0);
     }
 }

@@ -5,10 +5,20 @@ public class BulletManager : MonoBehaviour
 {
     public GunManager parentGun;
 
+    private void Update()
+    {
+        if (Mathf.Abs(transform.position.x - parentGun.transform.position.x) > 50f ||
+            Mathf.Abs(transform.position.y - parentGun.transform.position.y) > 50f)
+        {
+            parentGun.ReadyToShoot();
+            Destroy(gameObject);
+        }
+    }
+
     private void OnBecameInvisible()
     {
         parentGun.ReadyToShoot();
-        gameObject.ReturnToPool();
+        Destroy(gameObject);
     }
 
     private void OnTriggerEnter2D(Collider2D collision)
@@ -16,7 +26,7 @@ public class BulletManager : MonoBehaviour
         if (collision.gameObject.CompareTag("Player") || collision.gameObject.CompareTag("Ground"))
         {
             parentGun.ReadyToShoot();
-            gameObject.ReturnToPool();
-	    }
+            Destroy(gameObject);
+        }
     }
 }
