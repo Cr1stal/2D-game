@@ -4,11 +4,17 @@ using UnityEngine;
 
 public class MovePrefab : MonoBehaviour
 {
-    [Tooltip("Which prefab to move when colliding with object")]
-    public GameObject prefabToMove;
+    [SerializeField, Tooltip("Which prefab to move when colliding with object")]
+    GameObject prefabToMove;
 
-    [Tooltip("Sensor which should be activated when we move prefab")]
-    public GameObject sensorToActivate;
+    [SerializeField, Tooltip("Sensor which should be activated when we move prefab")]
+    GameObject sensorToActivate;
+
+    [SerializeField, Tooltip("Gun to deactivate")]
+    GunManager previousGun;
+
+    [SerializeField, Tooltip("Gun to activate")]
+    GunManager currentGun;
 
     private GameObject lazer;
     private GameObject gun;
@@ -34,47 +40,42 @@ public class MovePrefab : MonoBehaviour
     }
 
     private void initializeValues()
-    { 
+    {
         Transform t = prefabToMove.transform;
-        for (int i = 0; i < t.childCount; i++) 
-	{
+        for (int i = 0; i < t.childCount; i++)
+        {
             GameObject currentGameObject = t.GetChild(i).gameObject;
             if (currentGameObject.CompareTag("Lazer"))
-	    {
-	        lazer = currentGameObject;
-	    }
+            {
+                lazer = currentGameObject;
+            }
             else if (currentGameObject.CompareTag("FuelCan"))
             {
-		fuelCan = currentGameObject;
+                fuelCan = currentGameObject;
             }
             else if (currentGameObject.CompareTag("Gun"))
             {
-		gun = currentGameObject;
+                gun = currentGameObject;
             }
             else if (currentGameObject.CompareTag("LazerWall"))
-            { 
-		lazerWall = currentGameObject;
+            {
+                lazerWall = currentGameObject;
             }
             else if (currentGameObject.CompareTag("LazerPoint"))
             {
                 lazerPoints.Add(currentGameObject);
             }
             else if (currentGameObject.CompareTag("FuelCanPoint"))
-            { 
+            {
                 fuelCanPoints.Add(currentGameObject);
             }
             else if (currentGameObject.CompareTag("GunPoint"))
-            { 
+            {
                 gunPoints.Add(currentGameObject);
             }
         }
     }
 
-    // Update is called once per frame
-    void Update()
-    {
-        
-    }
 
     private void OnTriggerEnter2D(Collider2D collision)
     {
@@ -94,7 +95,7 @@ public class MovePrefab : MonoBehaviour
             if (lazerWall != null)
             {
                 lazerWall.SetActive(true);
-	    }
+            }
 
             if (lazerPoints.Count > 0)
             {
@@ -114,6 +115,16 @@ public class MovePrefab : MonoBehaviour
             {
                 var gunPoint = (GameObject)gunPoints[Random.Range(0, gunPoints.Count)];
                 gun.transform.position = gunPoint.transform.position;
+
+                if (currentGun != null)
+                {
+                    currentGun.active = false;
+                }
+
+                if (previousGun != null)
+                {
+                    previousGun.active = false;
+                }
             }
         }
     }

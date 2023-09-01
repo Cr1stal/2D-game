@@ -4,8 +4,8 @@ using UnityEngine;
 
 public class GunManager : MonoBehaviour
 {
-    [SerializeField, Tooltip("The projectile pool")]
-    ObjectPool bulletPool = null;
+    [SerializeField, Tooltip("The bullet prefab")]
+    GameObject bullet = null;
 
     [SerializeField, Tooltip("The tail of gun")]
     GameObject gunTail = null;
@@ -58,7 +58,7 @@ public class GunManager : MonoBehaviour
     void ShootNewProjectile()
     {
         audioSource.Play();
-        var projectile = bulletPool.GetObject();
+        var projectile = Instantiate(bullet);
         projectile.transform.position = gunHead.transform.position;
         projectile.transform.rotation = gunHead.transform.rotation;
 
