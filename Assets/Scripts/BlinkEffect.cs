@@ -5,7 +5,6 @@ using UnityEngine;
 public class BlinkEffect : MonoBehaviour
 {
     public float blinkInterval = 0.5f;  // Interval between blinking (in seconds)
-    public int blinkCount = 5;          // Number of times to blink
 
     private SpriteRenderer spriteRenderer;
     private bool isBlinking = false;
