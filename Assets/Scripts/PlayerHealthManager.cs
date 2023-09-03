@@ -114,7 +114,7 @@ public class PlayerHealthManager : MonoBehaviour
 
     private IEnumerator StartAcceptingHealthChangesCoroutine()
     {
-        yield return new WaitForSeconds(1.5f);
+        yield return new WaitForSeconds(1.0f);
 
         _acceptHealthChanges = true;
         _blinkEffect.StopBlinking();
